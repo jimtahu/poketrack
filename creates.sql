@@ -1,0 +1,71 @@
+use poketrack;
+
+DROP TABLE IF EXISTS moves;
+DROP TABLE IF EXISTS abilities;
+DROP TABLE IF EXISTS types;
+DROP TABLE IF EXISTS pokemon;
+DROP TABLE IF EXISTS stats;
+DROP TABLE IF EXISTS move_link;
+
+CREATE TABLE types (
+	Name VARCHAR(12),
+	PRIMARY KEY(Name)
+	);
+
+INSERT INTO types VALUES ('NORMAL'),('FIRE'),('WATER'),('GRASS'),
+			('ELECTRIC'),('ICE'),('FIGHTING'),('POISON'),
+			('GROUND'),('FLYING'),('PSYCHIC'), ('BUG'),
+			('ROCK'), ('GHOST'),('DRAGON'), ('DARK'),
+			('STEEL');
+
+CREATE TABLE abilities (
+	Name VARCHAR(12),
+	Expl TEXT,
+	PRIMARY KEY(Name)
+	);
+
+CREATE TABLE pokemon (
+	Name VARCHAR(12) NOT NULL,
+	DEXNO INT(3) UNSIGNED ZEROFILL,
+	Level INT(3) UNSIGNED,
+	Ability VARCHAR(12),
+	Type VARCHAR(12),
+	Gender ENUM('Male','Female','None'),
+	PRIMARY KEY(name),
+	FOREIGN KEY(Ability) REFERENCES abilities(Name),
+	FOREIGN KEY(Type) REFERENCES types(Name),
+	UNIQUE(name)
+	);
+
+CREATE TABLE stats (
+	Name VARCHAR(12) NOT NULL,
+	HP INT(3) UNSIGNED,
+	ATTACK INT(3) UNSIGNED,
+	DEFENSE INT(3) UNSIGNED,
+	SP_ATK INT(3) UNSIGNED,
+	SP_DEF INT(3) UNSIGNED,
+	SPEED INT(3) UNSIGNED,
+	PRIMARY KEY(Name),
+	FOREIGN KEY(Name) REFERENCES pokemon(Name)
+	);
+
+CREATE TABLE moves (
+	Name VARCHAR(16),
+	Power INT(3) UNSIGNED,
+	Accuracy INT(3) UNSIGNED,
+	PP INT(2) UNSIGNED,
+	Type VARCHAR(12),
+	Other VARCHAR(16),
+	FOREIGN KEY(Type) REFERENCES types(Name),
+	PRIMARY KEY(Name)
+	);
+
+CREATE TABLE move_link (
+	uid INT(10) AUTO_INCREMENT,
+	PokeName VARCHAR(12) NOT NULL,
+	MoveName VARCHAR(16) NOT NULL,
+	PRIMARY KEY(uid),
+	FOREIGN KEY(PokeName) REFERENCES pokemon(Name),
+	FOREIGN KEY(MoveName) REFERENCES moves(Name)
+	);
+

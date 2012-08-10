@@ -17,6 +17,8 @@ class pokemon {
 	public $Defense = 0;
 	public $SPAttack = 0;
 	public $SPDefense = 0;
+	//and ability
+	public $Expl='';
 }//end class pokemon
 
 function loadPokemon($name){

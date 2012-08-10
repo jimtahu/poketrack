@@ -7,7 +7,7 @@ include_once('pokemon.php');
 <?php
 $list = listPokemon();
 foreach($list as $name){
-	echo "<li>".$name."</li>";
+	echo "<li><a href=pokeview.php?act=view&name=$name>$name</a></li>";
 }
 ?>
 </ul>

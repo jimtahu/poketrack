@@ -21,10 +21,11 @@ class pokemon {
 
 function loadPokemon($name){
 	 global $database;
-	 $stmt = $database->prepare('SELECT Name,Level,Type,Ability,DEXNO,Gender FROM pokemon WHERE Name=?');
+	 $stmt = $database->prepare('SELECT pokemon.Name,Level,Type,Ability,DEXNO,Gender,HP,ATTACK,DEFENSE,SP_ATK,SP_DEF,SPEED'
+	                           .' FROM pokemon JOIN stats ON pokemon.Name=stats.Name WHERE pokemon.Name=?');
 	 $stmt->bind_param('s',$name);
 	 $stmt->execute();
-	 $stmt->bind_result($name,$level,$type,$ability,$dexno,$gender);
+	 $stmt->bind_result($name,$level,$type,$ability,$dexno,$gender,$HP,$attack,$defense,$spatk,$spdef,$speed);
 	 $dude = new pokemon();
 	 while($stmt->fetch()){
 	 	$dude->Name=$name;
@@ -33,8 +34,28 @@ function loadPokemon($name){
 		$dude->Ability=$ability;
 		$dude->Dexno=$dexno;
 		$dude->Gender=$gender;
+		$dude->HP=$HP;
+		$dude->Speed=$speed;
+		$dude->Attack=$attack;
+		$dude->Defense=$defense;
+		$dude->SPAttack=$spatk;
+		$dude->SPDefense=$spdef;
 	 }//end while result (should be only one)
 	 $stmt->close();
 	 return $dude;
 }//end loadPokemon
+
+function listPokemon(){
+	global $database;
+	$listing=Array();
+	$stmt = $database->prepare('SELECT Name FROM pokemon');
+	$stmt->execute();
+	$stmt->bind_result($name);
+	while($stmt->fetch()){
+		$listing[] = $name;
+	}//end while results
+	$stmt->close();
+	return $listing;
+}//end listPokemon
+
 ?>

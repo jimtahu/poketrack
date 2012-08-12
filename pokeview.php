@@ -3,6 +3,7 @@ include_once('head.php');
 include_once('pokemon.php');
 $poke = loadPokemon($_GET['name']);
 ?>
+<div class='pokeview'>
 <form method='post'>
 <input name='act' type='hidden' value='update'>
 <?php
@@ -36,6 +37,7 @@ Defense: <input name='defense' type='text' value="$poke->Defense"/>
 Specal Defense: <input name='spdef' type='text' value="$poke->SPDefense"/><br/>
 <input type="submit" value="Update"/><br/>
 </form>
+</div>
 END;
 include_once('tail.php');
 ?>

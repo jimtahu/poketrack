@@ -14,12 +14,12 @@ Name: $poke->Name <br/>
 Level: <input name='level' type='text' value="$poke->Level"/>
 Dex No: <input name='dexno' type='text' value="$poke->Dexno"/><br/>
 END;
-//echo "Type: <select name='type'>";
-//echo "<option value='".$info['Type']."'>".$info['Type']."</option>";
-//$res = mysql_query("SELECT * FROM types", $mysql);
-//while( $row = mysql_fetch_assoc($res) )
-//        echo "<option value='".$row['Name']."'>".$row['Name']."</option>";
-//echo "</select>";
+echo "Type: <select name='type'>";
+echo "<option value='".$poke->Type."'>".$poke->Type."</option>";
+$types = listTypes();
+foreach($types as $type )
+        echo "<option value='".$type."'>".$type."</option>";
+echo "</select>";
 echo <<<END
 Gender: <select name='gender'>
 <option value="$poke->Gender">$poke->Gender</option>

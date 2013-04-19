@@ -6,3 +6,9 @@ body {
 div {
    border-style: double;
 }
+
+table, th, td {
+    background-color: lightgrey;
+    border-style: double;
+    border: 1px solid green;
+}
